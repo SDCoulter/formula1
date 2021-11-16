@@ -5,7 +5,6 @@ Using sqlite.
 
 import sqlite3, click
 
-# Check if these are needed as we are not creating users/auth.
 from flask import current_app, g
 from flask.cli import with_appcontext
 

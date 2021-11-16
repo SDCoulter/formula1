@@ -36,8 +36,14 @@ def create_app(test_config=None):
         return 'The application is functioning.'
 
     # Register the database with the application.
+    # Check need for db in this instance.
     from . import db
     db.init_app(app)
+
+    # Register the data blueprint with the app.
+    from . import f1data
+    app.register_blueprint(f1data.bp)
+    app.add_url_rule('/', endpoint='index')
 
     # Return the app.
     return app
