@@ -1,3 +1,7 @@
+### I ignore:
+api_request.ipynb
+api_data/
+
 ### Flask ignore:
 venv/
 
