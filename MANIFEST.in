@@ -1,0 +1,4 @@
+include formula1_data/schema.sql
+graft formula1_data/static
+graft formula1_data/templates
+global-exclude *.pyc
