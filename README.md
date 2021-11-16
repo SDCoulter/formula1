@@ -1,2 +1,3 @@
-# formula1
-Formula 1 web app repo.
+# Formula 1 Flask Application
+
+Begin working on a Formula 1 data analysis application built using Flask.
