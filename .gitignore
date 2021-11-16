@@ -1,6 +1,8 @@
 ### I ignore:
 api_request.ipynb
+data_examine.ipynb
 api_data/
+notebooks/
 
 ### Flask ignore:
 venv/

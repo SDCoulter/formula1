@@ -35,5 +35,7 @@ def create_app(test_config=None):
     def app_func():
         return 'The application is functioning.'
 
+    # Register the database with the application.
+
     # Return the app.
     return app
