@@ -2,7 +2,7 @@
 api_request.ipynb
 data_examine.ipynb
 api_data/
-notebooks/
+hide_*
 
 ### Flask ignore:
 venv/
