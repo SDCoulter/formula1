@@ -39,10 +39,10 @@ def parse_con_standings(data):
         df['UID'] = df['position'].apply(lambda value: str(season_no) + p_z(round_no) + p_z(value))
 
         df = df.set_index('UID').drop(columns=['positionText', 'Constructor'])
-        df.columns = ['Points', 'Wins', 'Constructor Name', 'Constructor URL', 'Constructor Nationality',
-                        'Season Year', 'Round Number', 'UID']
-        df = df[['Constructor Name', 'Points', 'Wins', 'Constructor URL', 'Constructor Nationality',
-                        'Season Year', 'Round Number']]
+        df.columns = ['Position', 'Points', 'Wins', 'Constructor Name', 'Constructor URL',
+                          'Constructor Nationality', 'Season Year', 'Round Number']
+        df = df[['Position', 'Constructor Name', 'Points', 'Wins', 'Constructor URL',
+                         'Constructor Nationality', 'Season Year', 'Round Number']]
 
         # Create a name.
         name = f"{season_no}_r{p_z(round_no)}_Constructor_Standings"
