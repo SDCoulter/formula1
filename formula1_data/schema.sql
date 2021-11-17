@@ -1,5 +1,9 @@
--- Table for data explorations.
+-- Drop tables on instance creation.
 DROP TABLE IF EXISTS data_exps;
+DROP TABLE IF EXISTS constructor_standings;
+
+-- Table for data explorations.
+-- Is this needed?
 CREATE TABLE data_exps (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
   name TEXT UNIQUE NOT NULL,
@@ -7,8 +11,6 @@ CREATE TABLE data_exps (
 );
 
 -- Constructor Standings table.
-DROP TABLE IF EXISTS constructor_standings;
--- 2020_constructorStandings.csv
 CREATE TABLE constructor_standings (
   uid INTEGER UNIQUE NOT NULL,
   position INTEGER,
