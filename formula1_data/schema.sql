@@ -2,12 +2,13 @@
 DROP TABLE IF EXISTS data_exps;
 DROP TABLE IF EXISTS constructor_standings;
 
+
 -- Table for data explorations.
--- Is this needed?
 CREATE TABLE data_exps (
-  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  id INTEGER PRIMARY KEY,
   name TEXT UNIQUE NOT NULL,
-  url TEXT UNIQUE NOT NULL
+  url TEXT UNIQUE NOT NULL,
+  description TEXT UNIQUE NOT NULL
 );
 
 -- Constructor Standings table.

@@ -33,6 +33,15 @@ def init_db():
     db = get_db()
     with current_app.open_resource('schema.sql') as f:
         db.executescript(f.read().decode('utf8'))
+        # Import the table information to initialize in the database.
+        from . import db_table_data
+        db.executemany(
+            'INSERT INTO data_exps (id, name, url, description)'
+            ' VALUES (?, ?, ?, ?)',
+            db_table_data.table_list
+        )
+        # Commit these changes to the database.
+        db.commit()
 
 # Add CLI command to init db.
 @click.command('init-db')

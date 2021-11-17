@@ -1,33 +1,16 @@
 {% extends 'base.html' %}
 
-{% block header %}
-  <h1>{% block title %}Home{% endblock %}</h1>
-{% endblock %}
+{% block title %}Home{% endblock %}
 
 {% block content %}
 
-  <!-- for loop for each piece of analysis? -->
-  Here are some words.
-
-  <!-- Code from tutorial - may need to adapt.
-
-  {% for post in posts %}
-    <article class="post">
-      <header>
-        <div>
-          <h1>{{ post['title'] }}</h1>
-          <div class="about">by {{ post['username'] }} on {{ post['created'].strftime('%Y-%m-%d') }}</div>
-        </div>
-        {% if g.user['id'] == post['author_id'] %}
-          <a class="action" href="{{ url_for('blog.update', id=post['id']) }}">Edit</a>
-        {% endif %}
-      </header>
-      <p class="body">{{ post['body'] }}</p>
-    </article>
-    {% if not loop.last %}
-      <hr>
-    {% endif %}
+  <div id="tables">
+  {% for exp in exps %}
+    <!-- TODO: use url_for for the link here? -->
+    <h2><a href="{{ exp['url'] }}">{{ exp['name'] }}</a></h2>
+    <h3>{{ exp['url'] }}</h3>
+    <h4>{{ exp['description'] }}</h4>
   {% endfor %}
-  -->
+  </div>
 
 {% endblock %}
