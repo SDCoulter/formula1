@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+
+  <head>
+    <meta charset="utf-8">
+    <title>{% block title %}{% endblock %} - Formula 1 Data Analysis</title>
+    <!-- insert static style - file in flaskr/styles folder -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  
+  <body>
+
+    <nav>
+      <h1>Formula 1 Data Analysis</h1>
+
+      <ul>
+        <li><a href="{{ url_for('f1data.index') }}">Home</a></li>
+      </ul>
+    </nav>
+
+    <section class="content">
+      <header>
+        {% block header %}{% endblock %}
+      </header>
+
+      {% block content %}{% endblock %}
+    </section>
+
+  </body>
+</html>
