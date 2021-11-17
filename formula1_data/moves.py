@@ -9,10 +9,17 @@ import requests
 BLANK_DF = pd.DataFrame()
 
 
+
+def p_z(value):
+    """ Return string value with preceding 0 if value is length 1. """
+    s_val = str(value)
+    return f"0{s_val}" if len(s_val) == 1 else s_val
+
+
 def parse_con_standings(data):
     """
     Data returned from the request is parsed into more usable formats.
-    Returns filename and DataFrame.
+    Returns name and DataFrame.
     """
     try:
         # Separate the data.
@@ -25,19 +32,27 @@ def parse_con_standings(data):
         df['Constructor Name'] = df['Constructor'].apply(lambda value: value['name'])
         df['Constructor URL'] = df['Constructor'].apply(lambda value: value['url'])
         df['Constructor Nationality'] = df['Constructor'].apply(lambda value: value['nationality'])
-        df = df.set_index('position').drop(columns=['positionText', 'Constructor'])
-        df.index.name = 'Position'
-        df.columns = ['Points', 'Wins', 'Constructor Name', 'Constructor URL', 'Constructor Nationality']
-        df = df[['Constructor Name', 'Points', 'Wins', 'Constructor URL', 'Constructor Nationality']]
+        df['Season'] = season_no
+        df['Round'] = round_no
 
-        # Create a filename.
-        filename = f"{season_no}_r{round_no}_Constructor_Standings.csv"
+        # Create unique identifier.
+        df['UID'] = df['position'].apply(lambda value: str(season_no) + p_z(round_no) + p_z(value))
+
+        df = df.set_index('UID').drop(columns=['positionText', 'Constructor'])
+        df.columns = ['Points', 'Wins', 'Constructor Name', 'Constructor URL', 'Constructor Nationality',
+                        'Season Year', 'Round Number', 'UID']
+        df = df[['Constructor Name', 'Points', 'Wins', 'Constructor URL', 'Constructor Nationality',
+                        'Season Year', 'Round Number']]
+
+        # Create a name.
+        name = f"{season_no}_r{p_z(round_no)}_Constructor_Standings"
 
         # Return filename and new DataFrame.
-        return filename, df
+        return name, df
 
     except:
         return 'Unable to parse data - check URL.', BLANK_DF
+
 
 def con_standings(url):
     """
