@@ -5,10 +5,6 @@ A place to store the functions to be used to call data from API.
 import pandas as pd
 import requests
 
-# Blank DF to return if there's an error.
-BLANK_DF = pd.DataFrame()
-
-
 
 def p_z(value):
     """ Return string value with preceding 0 if value is length 1. """
@@ -44,14 +40,11 @@ def parse_con_standings(data):
         df = df[['Position', 'Constructor Name', 'Points', 'Wins', 'Constructor URL',
                          'Constructor Nationality', 'Season Year', 'Round Number']]
 
-        # Create a name.
-        name = f"{season_year}_r{p_z(round_no)}_Constructor_Standings"
-
-        # Return filename and new DataFrame.
-        return name, df
+        # Return new DataFrame.
+        return df
 
     except:
-        return 'Unable to parse data - check URL.', BLANK_DF
+        return 'Unable to parse data - check URL.'
 
 
 def con_standings(url):
@@ -72,7 +65,7 @@ def con_standings(url):
 
     # Except for non-200 status.
     except requests.exceptions.HTTPError:
-        return 'Status code not 200 - invalid URL.', BLANK_DF
+        return 'Status code not 200 - invalid URL.'
     # Unable to store in data variable.
     except KeyError:
-        return "URL entered likely wasn't for Constructor Standings", BLANK_DF
+        return "URL entered likely wasn't for Constructor Standings"
