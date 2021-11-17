@@ -23,7 +23,7 @@ def parse_con_standings(data):
     """
     try:
         # Separate the data.
-        season_no = data['season']
+        season_year = data['season']
         round_no = data['round']
         constructor_standings = data['ConstructorStandings']
 
@@ -32,11 +32,11 @@ def parse_con_standings(data):
         df['Constructor Name'] = df['Constructor'].apply(lambda value: value['name'])
         df['Constructor URL'] = df['Constructor'].apply(lambda value: value['url'])
         df['Constructor Nationality'] = df['Constructor'].apply(lambda value: value['nationality'])
-        df['Season'] = season_no
+        df['Season'] = season_year
         df['Round'] = round_no
 
         # Create unique identifier.
-        df['UID'] = df['position'].apply(lambda value: str(season_no) + p_z(round_no) + p_z(value))
+        df['UID'] = df['position'].apply(lambda value: str(season_year) + p_z(round_no) + p_z(value))
 
         df = df.set_index('UID').drop(columns=['positionText', 'Constructor'])
         df.columns = ['Position', 'Points', 'Wins', 'Constructor Name', 'Constructor URL',
@@ -45,7 +45,7 @@ def parse_con_standings(data):
                          'Constructor Nationality', 'Season Year', 'Round Number']]
 
         # Create a name.
-        name = f"{season_no}_r{p_z(round_no)}_Constructor_Standings"
+        name = f"{season_year}_r{p_z(round_no)}_Constructor_Standings"
 
         # Return filename and new DataFrame.
         return name, df
