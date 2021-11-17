@@ -4,18 +4,20 @@
   <head>
     <meta charset="utf-8">
     <title>{% block title %}{% endblock %} - Formula 1 Data Analysis</title>
-    <!-- insert static style - file in flaskr/styles folder -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto&family=Roboto+Slab:wght@500&display=swap" rel="stylesheet">
   </head>
-  
+
   <body>
 
     <nav>
-      <h1>Formula 1 Data Analysis</h1>
+      <div><h1><span class="f1">Formula 1</span> Data Analysis</h1></div>
 
-      <ul>
-        <li><a href="{{ url_for('f1data.index') }}">Home</a></li>
-      </ul>
+      <div id="nav-link-div">
+        <a href="{{ url_for('f1data.index') }}" id="nav-link">HOME</a>
+      </div>
     </nav>
 
     <section class="content">
