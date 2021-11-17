@@ -7,7 +7,7 @@ from flask import (
     Blueprint, redirect, render_template
 )
 
-from flaskr.db import get_db
+from formula1_data.db import get_db
 
 bp = Blueprint('f1data', __name__)
 
