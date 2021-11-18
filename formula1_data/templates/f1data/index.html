@@ -4,13 +4,41 @@
 
 {% block content %}
 
-  <div id="tables">
-  {% for exp in exps %}
-    <!-- TODO: use url_for for the link here? -->
-    <h2><a href="{{ exp['url'] }}">{{ exp['name'] }}</a></h2>
-    <h3>{{ exp['url'] }}</h3>
-    <h4>{{ exp['description'] }}</h4>
-  {% endfor %}
+<!-- main section - for app info -->
+<section class="py-5 text-center container">
+  <div class="row py-lg-5">
+    <div class="col-lg-6 col-md-8 mx-auto">
+      <h1 class="display-1">Formula 1</h1>
+      <p class="lead text-muted">Data analysis and visualization app for Formula 1 statistics. Include a little more info later.</p>
+      <p>
+        <a href="#" class="btn btn-primary my-2">See the GitHub Repo</a>
+        <a href="#" class="btn btn-secondary my-2">See the API</a>
+      </p>
+    </div>
   </div>
+</section>
+
+<!-- cards for data analysis -->
+<div class="container">
+  <div class="row mb-2">
+    {% for exp in exps %}
+      <div class="col-md-6">
+        <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm h-md-250 position-relative">
+          <div class="col p-4 d-flex flex-column position-static">
+            <strong class="d-inline-block mb-2 f1-color-red">Formula 1</strong>
+            <h3 class="mb-0">{{ exp['name'] }}</h3>
+            <!-- TODO: add date to the table of data analysis -->
+            <div class="mb-1 text-muted">---</div>
+            <p class="card-text mb-auto">{{ exp['description'] }}</p>
+            <div class="btn-group mt-3">
+              <a href="{{ exp['url'] }}" class="btn btn-sm btn-outline-secondary">View</a>
+              <a href="#" class="btn btn-sm btn-outline-secondary">word?</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
 
 {% endblock %}
