@@ -4,6 +4,7 @@ A place to store the functions to be used to call data from API.
 
 import pandas as pd
 import requests
+from formula1_data.db import get_db
 
 
 def p_z(value):
@@ -69,3 +70,33 @@ def con_standings(url):
     # Unable to store in data variable.
     except KeyError:
         return "URL entered likely wasn't for Constructor Standings"
+
+
+def search_con_db(db, year, round):
+    """
+    Function to search the passed in database to return the matching rows in a DF.
+    """
+    # Connect to the database.
+    db = get_db()
+
+    # Find the matching data.
+    data_match = db.execute(
+        'SELECT * FROM constructor_standings'
+        ' WHERE season_year = ? AND round_number = ?',
+        (year, round)
+    ).fetchall()
+
+    # Convert to a DataFrame.
+    df = pd.DataFrame(data_match,
+                        columns=["UID",
+                                 "Position",
+                                 "Constructor Name",
+                                 "Points",
+                                 "Wins",
+                                 "Constructor Url",
+                                 "Constructor Nationality",
+                                 "Season Year",
+                                 "Round Number"]).set_index("UID")
+
+    # Return the DataFrame.
+    return df

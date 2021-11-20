@@ -33,15 +33,22 @@ def con_standings():
     # TODO: make the values chosen automated to the latest.
     # for now we will just use season 2021 and round 19.
     try:
+        # Search db for default table.
+        df = moves.search_con_db(db, 2021, 19)
         # Search database for default dataframe.
-        df = db.execute(
-            'SELECT * FROM constructor_standings'
-            ' WHERE season_year = ? AND round_no = ?',
-            (2021, 19)
-        ).fetchall()
-    except:
+
+        # Check there is data in the database.
+        # TODO: create the method to raise an error here.
+        if len(df) == 0:
+            raise
+
+    # No db data, make API call.
+    except Exception as e:
         # If not in db (first visit) - query API and get DF.
         df = moves.con_standings('https://ergast.com/api/f1/current/constructorStandings.json')
+        # Store the DataFrame in the database.
+        df.to_sql(name='constructor_standings', con=db, if_exists='append')
+
 
     # Form sent with data to populate template.
     if request.method == 'POST':
@@ -52,11 +59,7 @@ def con_standings():
         no_db_data = False
         # Search database instance first for corresponding data.
         try:
-            data_match = db.execute(
-                "SELECT * FROM constructor_standings"
-                " WHERE season_year = ? AND round_no = ?"
-                " ORDER BY position"
-            ).fetchall()
+            df = search_con_db(season_year, round_no)
         except:
             no_db_data = True
 
@@ -76,8 +79,9 @@ def con_standings():
     else:
         # Only show the columns we need.
         page_df = df[['Position', 'Constructor Name', 'Points', 'Wins']].set_index('Position')
+        page_df.index.name = None
 
     # Pass the data back to the template to display.
-    return render_template('f1data/con_standings.html', tables=[page_df.to_html(classes='data')])
+    return render_template('f1data/con_standings.html', tables=[page_df.to_html(classes='table')])
 
     # Use graphs, etc, to display data depending on request from user. (html/js)
