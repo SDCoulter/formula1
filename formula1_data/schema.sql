@@ -15,7 +15,7 @@ CREATE TABLE data_exps (
 CREATE TABLE constructor_standings (
   uid INTEGER UNIQUE NOT NULL,
   position INTEGER,
-  constructor_name TEXT UNIQUE NOT NULL,
+  constructor_name TEXT NOT NULL,
   points INTEGER NOT NULL,
   wins INTEGER NOT NULL,
   constructor_url TEXT NOT NULL,
