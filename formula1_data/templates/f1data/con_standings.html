@@ -5,28 +5,15 @@
 {% endblock %}
 
 {% block content %}
+
   <form method="post">
     <label for="season_year">Season Year</label>
-    <select name="season_year" id="season_year" class="dropdown">
-      <option value="2021">2021</option>
-      <option value="2020" disabled>2020</option>
-      <option value="2019" disabled>2019</option>
-      <option value="2018" disabled>2018</option>
-      <option value="2017" disabled>2017</option>
-      <option value="2016" disabled>2016</option>
-      <option value="2015" disabled>2015</option>
-      <option value="2014" disabled>2014</option>
+    <select id="seasonYearDD" name="season_year" class="dropdown">
+      <option selected="true" disabled>{{ pass_data.season_year }}</option>
     </select>
-
-    <!-- TODO: populate the round numbers based on the
-                chosen season year (js) - have json file
-                containing choices? -->
     <label for="round_no">Round Number</label>
-    <select name="round_no" id="round_no" class="dropdown">
-      <option value="19">19</option>
-      <option value="18" disabled>18</option>
-      <option value="17" disabled>17</option>
-      <option value="16" disabled>16</option>
+    <select id="roundNoDD" name="round_no" class="dropdown">
+      <option selected="true" disabled>{{ pass_data.round_no }}</option>
     </select>
 
     <input type="submit" value="Submit">
@@ -39,4 +26,8 @@
       {{ table|safe }}
     {% endfor %}
   </div>
+
+  <script src="{{ url_for('static', filename='js/round_quantites.json') }}"></script>
+  <script src="{{ url_for('static', filename='js/populate_sy_rn.js') }}"></script>
+
 {% endblock %}
