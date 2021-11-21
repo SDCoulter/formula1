@@ -37,7 +37,7 @@ def con_standings():
         df = moves.search_con_db(2021, 19)
         # Pass this to the page to fill in default values for SY and RN dropdowns.
         pass_data = {'season_year': 2021, 'round_no': 19}
-        # Search database for default dataframe.
+        # TODO: is there a way to improve the handling of pass_data?
 
         # Check there is data in the database.
         # TODO: create the method to raise an error here.
@@ -90,6 +90,8 @@ def con_standings():
         page_df.index.name = None
 
     # Pass the data back to the template to display.
-    return render_template('f1data/con_standings.html', tables=[page_df.to_html(classes='table')], pass_data=pass_data)
+    return render_template('f1data/con_standings.html',
+                            tables=[page_df.to_html(classes='table')],
+                            pass_data=pass_data)
 
     # Use graphs, etc, to display data depending on request from user. (html/js)
