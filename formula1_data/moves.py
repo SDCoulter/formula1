@@ -33,13 +33,14 @@ def parse_con_standings(data):
         df['Round'] = round_no
 
         # Create unique identifier.
-        df['UID'] = df['position'].apply(lambda value: str(season_year) + p_z(round_no) + p_z(value))
+        df['uid'] = df['position'].apply(lambda value: str(season_year) + p_z(round_no) + p_z(value))
 
-        df = df.set_index('UID').drop(columns=['positionText', 'Constructor'])
-        df.columns = ['Position', 'Points', 'Wins', 'Constructor Name', 'Constructor URL',
-                          'Constructor Nationality', 'Season Year', 'Round Number']
-        df = df[['Position', 'Constructor Name', 'Points', 'Wins', 'Constructor URL',
-                         'Constructor Nationality', 'Season Year', 'Round Number']]
+        df = df.set_index('uid').drop(columns=['positionText', 'Constructor'])
+        # Convert columns to names stored in the SQLite db.
+        df.columns = ['position', 'points', 'wins', 'constructor_name', 'constructor_url',
+                          'constructor_nationality', 'season_year', 'round_number']
+        df = df[['position', 'constructor_name', 'points', 'wins', 'constructor_url',
+                         'constructor_nationality', 'season_year', 'round_number']]
 
         # Return new DataFrame.
         return df
@@ -72,7 +73,12 @@ def con_standings(url):
         return "URL entered likely wasn't for Constructor Standings"
 
 
-def search_con_db(db, year, round):
+def parse_con_url(season_year, round_no):
+    """Function to turn user selection into URL to query API."""
+    return f'https://ergast.com/api/f1/{season_year}/{round_no}/constructorStandings.json'
+
+
+def search_con_db(year, round):
     """
     Function to search the passed in database to return the matching rows in a DF.
     """
