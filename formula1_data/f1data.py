@@ -34,7 +34,9 @@ def con_standings():
     # for now we will just use season 2021 and round 19.
     try:
         # Search db for default table.
-        df = moves.search_con_db(db, 2021, 19)
+        df = moves.search_con_db(2021, 19)
+        # Pass this to the page to fill in default values for SY and RN dropdowns.
+        pass_data = {'season_year': 2021, 'round_no': 19}
         # Search database for default dataframe.
 
         # Check there is data in the database.
@@ -54,21 +56,27 @@ def con_standings():
     if request.method == 'POST':
         season_year = request.form['season_year']
         round_no = request.form['round_no']
+        # So we can update the default values in the dropdowns on the page.
+        pass_data = {'season_year': season_year, 'round_no': round_no}
 
         # Marker for data being found in the database.
         no_db_data = False
         # Search database instance first for corresponding data.
         try:
-            df = search_con_db(season_year, round_no)
-        except:
-            no_db_data = True
+            df = moves.search_con_db(season_year, round_no)
 
-        # Else find the data from the API.
-        if no_db_data:
-            data_match = pd.DataFrame()
-            # TODO: parse the selection to create the url.
-            # TODO: use the moves.py function to collect the data and return a DataFrame
-            # TODO: store the data in the db.
+            # TODO: create error.
+            if len(df) == 0:
+                raise
+
+        # Otherwise try to get the data from the API.
+        except Exception as e:
+            # Find the URL and query the API.
+            df = moves.con_standings(moves.parse_con_url(season_year, round_no))
+            # Store the newly found data.
+            df.to_sql(name='constructor_standings', con=db, if_exists='append')
+            # TODO: replace this method, currently doing two searchs for column names.
+            df = moves.search_con_db(season_year, round_no)
 
 
     # Check if an error was returned during URL parsing.
@@ -82,6 +90,6 @@ def con_standings():
         page_df.index.name = None
 
     # Pass the data back to the template to display.
-    return render_template('f1data/con_standings.html', tables=[page_df.to_html(classes='table')])
+    return render_template('f1data/con_standings.html', tables=[page_df.to_html(classes='table')], pass_data=pass_data)
 
     # Use graphs, etc, to display data depending on request from user. (html/js)
