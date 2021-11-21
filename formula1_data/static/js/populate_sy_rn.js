@@ -15,14 +15,14 @@ $(document).ready(function() {
     rnDropdown.empty();
     // Loop to add each round number to the dropdown.
     for (let i = roundNumber; i > 0; i--) {
-      rnDropdown.append($('<option></option>').attr('value', i).text(i));
+      rnDropdown.append($('<option></option>').attr('value', i).text(i + " - " + r_names[year][i]['name']));
     };
   };
 
   // rq imported from local JSON file.
   // TODO: set up call to API on db init so it's covered for future seasons.
-  $.each(rq, function(key) {
-    dropdown.append($('<option></option>').attr('value', rq[key]['season_year']).text(rq[key]['season_year']));
+  $.each(years, function(index, year) {
+    dropdown.append($('<option></option>').attr('value', year).text(year));
   })
 
   $("select#seasonYearDD").on('change',function(){
