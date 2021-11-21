@@ -1,3 +1,18 @@
 .f1-color-red {
   color: #FF1E00 !important;
 }
+
+th {
+  text-align: left !important;
+}
+
+tr {
+  border: 1px solid #f2f2f2 !important;
+}
+
+.dataframe {
+  border-radius: 10px;
+  background-color: white;
+  filter: drop-shadow(0 0 0.75rem rgba(0, 0, 0, 0.2));
+  border: 0px !important;
+}

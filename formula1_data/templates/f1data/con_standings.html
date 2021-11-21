@@ -14,7 +14,7 @@
   </section>
   <!-- end header - could be put in base if all similar? -->
 
-  <!-- form and user interaction block -->
+  <!-- form and user interaction block-->
   <form method="post" class="row">
       <div class="col-md-5 text-center">
         <label for="season_year" class="h2">Season Year</label>
@@ -34,9 +34,9 @@
   </form>
   <!-- end form block -->
 
-
   <!-- render table -->
-  <div class="row">
+  <div class="row mt-4">
+    <!-- TODO: work with the df being loaded into bootstrap, instead of !important? -->
     {% for table in tables %}
       {{ table|safe }}
     {% endfor %}
