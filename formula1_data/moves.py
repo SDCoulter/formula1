@@ -19,35 +19,31 @@ def parse_con_standings(data):
     Data returned from the request is parsed into more usable formats.
     Returns name and DataFrame.
     """
-    try:
-        # Separate the data.
-        season_year = data['season']
-        round_no = data['round']
-        constructor_standings = data['ConstructorStandings']
+    # Separate the data.
+    season_year = data['season']
+    round_no = data['round']
+    constructor_standings = data['ConstructorStandings']
 
-        # Manipulate the data to a neater DataFrame.
-        df = pd.DataFrame(constructor_standings)
-        df['Constructor Name'] = df['Constructor'].apply(lambda value: value['name'])
-        df['Constructor URL'] = df['Constructor'].apply(lambda value: value['url'])
-        df['Constructor Nationality'] = df['Constructor'].apply(lambda value: value['nationality'])
-        df['Season'] = season_year
-        df['Round'] = round_no
+    # Manipulate the data to a neater DataFrame.
+    df = pd.DataFrame(constructor_standings)
+    df['Constructor Name'] = df['Constructor'].apply(lambda value: value['name'])
+    df['Constructor URL'] = df['Constructor'].apply(lambda value: value['url'])
+    df['Constructor Nationality'] = df['Constructor'].apply(lambda value: value['nationality'])
+    df['Season'] = season_year
+    df['Round'] = round_no
 
-        # Create unique identifier.
-        df['uid'] = df['position'].apply(lambda value: str(season_year) + p_z(round_no) + p_z(value))
+    # Create unique identifier.
+    df['uid'] = df['position'].apply(lambda value: str(season_year) + p_z(round_no) + p_z(value))
 
-        df = df.set_index('uid').drop(columns=['positionText', 'Constructor'])
-        # Convert columns to names stored in the SQLite db.
-        df.columns = ['position', 'points', 'wins', 'constructor_name', 'constructor_url',
-                          'constructor_nationality', 'season_year', 'round_number']
-        df = df[['position', 'constructor_name', 'points', 'wins', 'constructor_url',
-                         'constructor_nationality', 'season_year', 'round_number']]
+    df = df.set_index('uid').drop(columns=['positionText', 'Constructor'])
+    # Convert columns to names stored in the SQLite db.
+    df.columns = ['position', 'points', 'wins', 'constructor_name', 'constructor_url',
+                      'constructor_nationality', 'season_year', 'round_number']
+    df = df[['position', 'constructor_name', 'points', 'wins', 'constructor_url',
+                     'constructor_nationality', 'season_year', 'round_number']]
 
-        # Return new DataFrame.
-        return df
-
-    except:
-        return 'Unable to parse data - check URL.'
+    # Return new DataFrame.
+    return df
 
 
 def con_standings(url):
@@ -67,11 +63,8 @@ def con_standings(url):
         return parse_con_standings(data)
 
     # Except for non-200 status.
-    except requests.exceptions.HTTPError:
-        return 'Status code not 200 - invalid URL.'
-    # Unable to store in data variable.
-    except KeyError:
-        return "URL entered likely wasn't for Constructor Standings"
+    except requests.exceptions.HTTPError as e:
+        return 'Status Code Error: ' + str(e)
 
 
 def parse_con_url(season_year, round_no):

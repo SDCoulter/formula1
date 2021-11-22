@@ -5,7 +5,7 @@ Create the Blueprints to allow us to start displaying data.
 import pandas as pd
 # Check which modules to import.
 from flask import (
-    Blueprint, render_template, request
+    Blueprint, render_template, request, flash
 )
 
 from formula1_data.db import get_db
@@ -77,16 +77,17 @@ def con_standings():
         except Exception as e:
             # Find the URL and query the API.
             df = moves.con_standings(moves.parse_con_url(season_year, round_no))
-            # Store the newly found data.
-            df.to_sql(name='constructor_standings', con=db, if_exists='append')
-            # TODO: replace this method, currently doing two searchs for column names.
-            df.columns = moves.pretty_con_names()
+            if type(df) != str:
+                # Store the newly found data.
+                df.to_sql(name='constructor_standings', con=db, if_exists='append')
+                # TODO: replace this method, currently doing two searchs for column names.
+                df.columns = moves.pretty_con_names()
 
     # Check if an error was returned during URL parsing.
-    if type(df) == 'str':
+    if type(df) == str:
         flash(df)
         # Send blank DataFrame.
-        df = pd.DataFrame()
+        page_df = pd.DataFrame()
     else:
         # Only show the columns we need.
         page_df = df[['Position', 'Constructor Name', 'Points', 'Wins']].set_index('Position')
