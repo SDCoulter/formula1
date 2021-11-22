@@ -3,11 +3,15 @@
 }
 
 th {
-  text-align: left !important;
+  text-align: center !important;
 }
 
 tr {
   border: 1px solid #f2f2f2 !important;
+}
+
+td {
+  text-align: center;
 }
 
 .dataframe {
