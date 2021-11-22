@@ -107,3 +107,14 @@ def search_con_db(year, round):
 
     # Return the DataFrame.
     return df
+
+
+def pretty_con_names():
+    return [ "Position",
+             "Constructor Name",
+             "Points",
+             "Wins",
+             "Constructor Url",
+             "Constructor Nationality",
+             "Season Year",
+             "Round Number"]

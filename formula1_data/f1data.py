@@ -34,9 +34,9 @@ def con_standings():
     # for now we will just use season 2021 and round 19.
     try:
         # Search db for default table.
-        df = moves.search_con_db(2021, 19)
+        df = moves.search_con_db(2021, 20)
         # Pass this to the page to fill in default values for SY and RN dropdowns.
-        pass_data = {'season_year': 2021, 'round_no': "19 - Brazilian Grand Prix"}
+        pass_data = {'season_year': 2021, 'round_no': "20 - Qatar Grand Prix"}
         # TODO: is there a way to improve the handling of pass_data?
 
         # Check there is data in the database.
@@ -50,6 +50,8 @@ def con_standings():
         df = moves.con_standings('https://ergast.com/api/f1/current/constructorStandings.json')
         # Store the DataFrame in the database.
         df.to_sql(name='constructor_standings', con=db, if_exists='append')
+        # Rename the columns.
+        df.columns = moves.pretty_con_names()
 
 
     # Form sent with data to populate template.
@@ -78,8 +80,7 @@ def con_standings():
             # Store the newly found data.
             df.to_sql(name='constructor_standings', con=db, if_exists='append')
             # TODO: replace this method, currently doing two searchs for column names.
-            df = moves.search_con_db(season_year, round_no)
-
+            df.columns = moves.pretty_con_names()
 
     # Check if an error was returned during URL parsing.
     if type(df) == 'str':
