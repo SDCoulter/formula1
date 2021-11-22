@@ -13,7 +13,6 @@ def get_db():
     # Allow multiple functions access to database during the request.
     if 'db' not in g:
         g.db = sqlite3.connect(
-        # Point to current app in use - formula1_data.
             current_app.config['DATABASE'],
             detect_types=sqlite3.PARSE_DECLTYPES
         )
