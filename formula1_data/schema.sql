@@ -8,13 +8,16 @@ CREATE TABLE data_exps (
   id INTEGER PRIMARY KEY,
   name TEXT UNIQUE NOT NULL,
   url TEXT UNIQUE NOT NULL,
-  description TEXT UNIQUE NOT NULL
+  description TEXT NOT NULL,
+  date_created TEXT NOT NULL,
+  function_name TEXT UNIQUE NOT NULL,
+  function_url TEXT NOT NULL
 );
 
 -- Constructor Standings table.
 CREATE TABLE constructor_standings (
   uid INTEGER UNIQUE NOT NULL,
-  position INTEGER,
+  position INTEGER NOT NULL,
   constructor_name TEXT NOT NULL,
   points INTEGER NOT NULL,
   wins INTEGER NOT NULL,

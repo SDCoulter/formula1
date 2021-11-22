@@ -36,8 +36,8 @@ def init_db():
         # Import the table information to initialize in the database.
         from . import db_table_data
         db.executemany(
-            'INSERT INTO data_exps (id, name, url, description)'
-            ' VALUES (?, ?, ?, ?)',
+            'INSERT INTO data_exps (id, name, url, description, date_created, function_name, function_url)'
+            ' VALUES (?, ?, ?, ?, ?, ?, ?)',
             db_table_data.table_list
         )
         # Commit these changes to the database.
