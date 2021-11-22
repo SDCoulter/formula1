@@ -15,7 +15,8 @@ $(document).ready(function() {
     rnDropdown.empty();
     // Loop to add each round number to the dropdown.
     for (let i = roundNumber; i > 0; i--) {
-      rnDropdown.append($('<option></option>').attr('value', i).text(i + " - " + r_names[year][i]['name']));
+      let roundName = i + " - " + r_names[year][i]['name']
+      rnDropdown.append($('<option></option>').attr('value', roundName).text(roundName));
     };
   };
 

@@ -36,7 +36,7 @@ def con_standings():
         # Search db for default table.
         df = moves.search_con_db(2021, 19)
         # Pass this to the page to fill in default values for SY and RN dropdowns.
-        pass_data = {'season_year': 2021, 'round_no': 19}
+        pass_data = {'season_year': 2021, 'round_no': "19 - Brazilian Grand Prix"}
         # TODO: is there a way to improve the handling of pass_data?
 
         # Check there is data in the database.
@@ -55,9 +55,11 @@ def con_standings():
     # Form sent with data to populate template.
     if request.method == 'POST':
         season_year = request.form['season_year']
-        round_no = request.form['round_no']
+        round_details = request.form['round_no']
+        round_no = int(round_details.split(' ')[0])
+
         # So we can update the default values in the dropdowns on the page.
-        pass_data = {'season_year': season_year, 'round_no': round_no}
+        pass_data = {'season_year': season_year, 'round_no': round_details}
 
         # Marker for data being found in the database.
         no_db_data = False

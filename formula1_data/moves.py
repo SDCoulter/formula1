@@ -3,8 +3,9 @@ A place to store the functions to be used to call data from API.
 """
 
 import pandas as pd
-import requests
+import requests, os
 from formula1_data.db import get_db
+from flask import url_for
 
 
 def p_z(value):
