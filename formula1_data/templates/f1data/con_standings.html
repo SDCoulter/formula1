@@ -8,7 +8,8 @@
   <section class="text-center container">
     <div class="row py-sm-5">
       <div class="col-sm-12  mx-auto">
-        <h1 class="display-2">{% block title %}Constructor Standings{% endblock %}</h1>
+        <h1 class="display-2 mb-5">{% block title %}Constructor Standings - {{ pass_data.season_year }}{% endblock %}</h1>
+        <h3 class="display-6">Round {{ pass_data.round_no }}</h3>
       </div>
     </div>
   </section>
@@ -17,20 +18,20 @@
   <!-- form and user interaction block-->
   <form method="post" class="row">
       <div class="col-md-5 text-center">
-        <label for="season_year" class="h2">Season Year</label>
-        <select id="seasonYearDD" name="season_year" class="dropdown form-select form-select-lg mb-3">
+        <label for="season_year" class="h4">Season Year</label>
+        <select id="seasonYearDD" name="season_year" class="dropdown form-select form-select mb-3">
           <option selected="true">{{ pass_data.season_year }}</option>
         </select>
       </div>
       <div class="col-md-5 text-center">
-        <label for="round_no" class="h2 text-muted">Round Number</label>
-        <select id="roundNoDD" name="round_no" class="dropdown form-select form-select-lg mb-3">
+        <label for="round_no" class="h4 text-muted">Round Number</label>
+        <select id="roundNoDD" name="round_no" class="dropdown form-select form-select mb-3">
           <option selected="true">{{ pass_data.round_no }}</option>
           <option value="None" disabled>Select Season Year First</option>
         </select>
       </div>
-      <div class="col-md-2 align-self-center text-center">
-        <input type="submit" value="Submit" class="btn-lg btn-primary">
+      <div class="col-md-2 align-self-center text-center d-grid">
+        <input type="submit" value="Submit" class="btn btn-primary">
       </div>
   </form>
   <!-- end form block -->
