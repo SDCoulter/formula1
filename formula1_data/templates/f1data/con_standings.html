@@ -26,6 +26,7 @@
         <label for="round_no" class="h2 text-muted">Round Number</label>
         <select id="roundNoDD" name="round_no" class="dropdown form-select form-select-lg mb-3">
           <option selected="true">{{ pass_data.round_no }}</option>
+          <option value="None" disabled>Select Season Year First</option>
         </select>
       </div>
       <div class="col-md-2 align-self-center text-center">
@@ -36,7 +37,6 @@
 
   <!-- render table -->
   <div class="row mt-4">
-    <!-- TODO: work with the df being loaded into bootstrap, instead of !important? -->
     {% for table in tables %}
       {{ table|safe }}
     {% endfor %}

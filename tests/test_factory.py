@@ -1,10 +1,13 @@
-# Test the factory function.
+""" Test the factoriy function. """
+
 from formula1_data import create_app
+
 
 def test_config():
     # Test passing test config works as it should.
     assert not create_app().testing
     assert create_app({'TESTING': True}).testing
+
 
 def test_app_func(client):
     # Test app functionality route.

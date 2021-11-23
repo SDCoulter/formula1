@@ -1,4 +1,5 @@
-# Test database.
+""" Test connection to the database and its initialization. """
+
 import sqlite3, pytest
 from formula1_data.db import get_db
 

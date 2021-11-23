@@ -1,3 +1,5 @@
+""" Test the functions in f1data.py (and by extension the modules they use.) """
+
 import pytest
 from formula1_data.db import get_db
 

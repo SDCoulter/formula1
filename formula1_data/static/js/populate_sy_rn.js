@@ -3,9 +3,6 @@ $(document).ready(function() {
   // Target the selected element.
   let dropdown = $('#seasonYearDD');
 
-  // Clear any left over options in element.
-  //dropdown.empty();
-
   // Create a function to update Round Number dropdown when Season Year is changed.
   let updateSeasonYear = function(year) {
     // Get the number of rounds from the JSON file.
@@ -20,12 +17,13 @@ $(document).ready(function() {
     };
   };
 
-  // rq imported from local JSON file.
-  // TODO: set up call to API on db init so it's covered for future seasons.
+  // List of years imported from local JSON file.
   $.each(years, function(index, year) {
     dropdown.append($('<option></option>').attr('value', year).text(year));
   })
 
+  // When the Season Year dropdown's value is changed, run updateSeasonYear() -
+  // which updates the list of round numbers/names.
   $("select#seasonYearDD").on('change',function(){
     var selectedYear = $('#seasonYearDD option:selected').text();
     updateSeasonYear(selectedYear);

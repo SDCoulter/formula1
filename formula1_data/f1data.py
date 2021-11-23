@@ -29,18 +29,13 @@ def index():
 def con_standings():
     db = get_db()
 
-    # TODO: create default behaviour so data can be passed to the page before user selection.
-    # TODO: make the values chosen automated to the latest.
-    # for now we will just use season 2021 and round 19.
     try:
         # Search db for default table.
         df = moves.search_con_db(2021, 20)
         # Pass this to the page to fill in default values for SY and RN dropdowns.
         pass_data = {'season_year': 2021, 'round_no': "20 - Qatar Grand Prix"}
-        # TODO: is there a way to improve the handling of pass_data?
 
-        # Check there is data in the database.
-        # TODO: create the method to raise an error here.
+        # Check there is data in the database, otherwise raise an Error.
         if len(df) == 0:
             raise
 
@@ -63,13 +58,11 @@ def con_standings():
         # So we can update the default values in the dropdowns on the page.
         pass_data = {'season_year': season_year, 'round_no': round_details}
 
-        # Marker for data being found in the database.
-        no_db_data = False
         # Search database instance first for corresponding data.
         try:
             df = moves.search_con_db(season_year, round_no)
 
-            # TODO: create error.
+            # Raise an error when no data is found.
             if len(df) == 0:
                 raise
 
@@ -80,22 +73,21 @@ def con_standings():
             if type(df) != str:
                 # Store the newly found data.
                 df.to_sql(name='constructor_standings', con=db, if_exists='append')
-                # TODO: replace this method, currently doing two searchs for column names.
+                # Rename columns.
                 df.columns = moves.pretty_con_names()
 
     # Check if an error was returned during URL parsing.
     if type(df) == str:
+        # Flash error on page and send blank DataFrame.
         flash(df)
-        # Send blank DataFrame.
         page_df = pd.DataFrame()
     else:
         # Only show the columns we need.
         page_df = df[['Position', 'Constructor Name', 'Points', 'Wins']].set_index('Position')
+        page_df.columns.name = 'Position'
         page_df.index.name = None
 
     # Pass the data back to the template to display.
     return render_template('f1data/con_standings.html',
                             tables=[page_df.to_html(classes='table')],
                             pass_data=pass_data)
-
-    # Use graphs, etc, to display data depending on request from user. (html/js)

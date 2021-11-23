@@ -1,4 +1,4 @@
--- Test data for testing the app.3
+-- Test data for testing the app.
 INSERT INTO data_exps (id, name, url, description, date_created, function_name, function_url)
 VALUES
   (9000, "Drivers Standings Analysis", "guguigui", "View driver standings", "21-Nov-21", "whatwhy", "https://github.com"),

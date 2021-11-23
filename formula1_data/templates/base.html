@@ -12,38 +12,38 @@
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
 
-  <header>
-    <div class="collapse bg-dark" id="navbarHeader">
-      <div class="container">
-        <div class="row">
-          <div class="col-sm-8 col-md-7 py-4">
-            <h4 class="text-white">About</h4>
-            <p class="text-muted">An app built to create some visualizations and analyze Formula 1 data. The data is from the Ergast API (link here) and the application is built using Flask, styled with Bootstrap.</p>
-          </div>
-          <div class="col-sm-4 offset-md-1 py-4">
-            <h4 class="text-white">#</h4>
-            <ul class="list-unstyled">
-              <li><a href="#" class="text-white">#</a></li>
-              <li><a href="#" class="text-white">#</a></li>
-              <li><a href="#" class="text-white">#</a></li>
-            </ul>
+  <body>
+
+    <header>
+      <div class="collapse bg-dark" id="navbarHeader">
+        <div class="container">
+          <div class="row">
+            <div class="col-sm-8 col-md-7 py-4">
+              <h4 class="text-white">About</h4>
+              <p class="text-muted">An app built to create some visualizations and analyze Formula 1 data. The data is from the Ergast API (link here) and the application is built using Flask, styled with Bootstrap.</p>
+            </div>
+            <div class="col-sm-4 offset-md-1 py-4">
+              <h4 class="text-white">#</h4>
+              <ul class="list-unstyled">
+                <li><a href="#" class="text-white">#</a></li>
+                <li><a href="#" class="text-white">#</a></li>
+                <li><a href="#" class="text-white">#</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>
-    </div>
-    <div class="navbar navbar-dark bg-dark shadow-sm">
-      <div class="container">
-        <a href="{{ url_for('f1data.index') }}" class="navbar-brand d-flex align-items-center">
-          <strong><span style="color: #FF1E00;">Formula 1</span> - Data Analysis</strong>
-        </a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+      <div class="navbar navbar-dark bg-dark shadow-sm">
+        <div class="container">
+          <a href="{{ url_for('f1data.index') }}" class="navbar-brand d-flex align-items-center">
+            <strong><span style="color: #FF1E00;">Formula 1</span> - Data Analysis</strong>
+          </a>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarHeader" aria-controls="navbarHeader" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+          </button>
+        </div>
       </div>
-    </div>
-  </header>
-
-  <!-- header dropdown with url_for('f1data.con_standings')? -->
+    </header>
 
     <main>
       {% block content %}{% endblock %}

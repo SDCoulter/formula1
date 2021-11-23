@@ -1,5 +1,5 @@
 """
-A place to store the functions to be used to call data from API.
+A place to store the functions to be used in f1data.py.
 """
 
 import pandas as pd
@@ -103,6 +103,7 @@ def search_con_db(year, round):
 
 
 def pretty_con_names():
+    """ Function to change names of columns from SQL to presentation. """
     return [ "Position",
              "Constructor Name",
              "Points",
