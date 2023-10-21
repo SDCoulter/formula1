@@ -3,6 +3,7 @@ api_request.ipynb
 data_examine.ipynb
 api_data/
 hide_*
+**idea**
 
 ### Flask ignore:
 venv/
